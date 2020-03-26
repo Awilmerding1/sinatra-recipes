@@ -33,7 +33,7 @@
         <p class="links"><a href="/logout" class="logout">Log Out</a></p>
         <p class="links"><a href="/users/<%=Helpers.current_user(session).id if Helpers.is_logged_in?(session)%>">My Recipes</a></p>
         <p class="links"><a href="/recipes/new">New Recipe</a></p>
-        <p class="links"><a href="#">All Recipes</a></p>
+        <p class="links"><a href="/recipes">All Recipes</a></p>
         <p class="links"><a href="/users">All Users</a></p>
       <%end%>
         <%= yield %>

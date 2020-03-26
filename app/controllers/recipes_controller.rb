@@ -1,11 +1,18 @@
 class RecipesController < ApplicationController
 
+
+  get '/recipes' do
+    @recipes = Recipe.all
+    erb :'recipes/index'
+  end
+
   get '/recipes/new' do
     if !Helpers.is_logged_in?(session)
       redirect '/'
     end
     erb :'recipes/new'
   end
+
 
   post '/recipes' do
     recipe = Recipe.create(params)
