@@ -6,13 +6,13 @@ class RecipesController < ApplicationController
     erb :'recipes/index'
   end
 
+
   get '/recipes/new' do
     if !Helpers.is_logged_in?(session)
       redirect '/'
     end
     erb :'recipes/new'
   end
-
 
   post '/recipes' do
     recipe = Recipe.create(params)
@@ -33,6 +33,7 @@ class RecipesController < ApplicationController
     erb :'recipes/show'
   end
 
+
   get '/recipes/:id/edit' do
       @recipe = Recipe.find_by(id: params[:id])
     if !Helpers.is_logged_in?(session) || !@recipe || @recipe.user != Helpers.current_user(session)
@@ -49,6 +50,14 @@ class RecipesController < ApplicationController
     else
       redirect to "/recipes"
     end
+  end
+
+  delete '/recipes/:id/delete' do
+    recipe = Recipe.find_by(id: params[:id])
+    if recipe && recipe.user == Helpers.current_user(session)
+      recipe.destroy
+    end
+    redirect to '/recipes'
   end
 
 end
