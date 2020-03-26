@@ -4,3 +4,8 @@
 <p><%= @recipe.instructions %></p>
 <p><%= @recipe.prep_time %></p>
 <p><%= @recipe.cook_time %></p>
+
+
+<% if Helpers.current_user(session) == @recipe.user %>
+  <a href="/recipes/<%=@recipe.id%>/edit">Edit Recipe</a>
+<%end%>

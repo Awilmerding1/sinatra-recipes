@@ -33,4 +33,22 @@ class RecipesController < ApplicationController
     erb :'recipes/show'
   end
 
+  get '/recipes/:id/edit' do
+      @recipe = Recipe.find_by(id: params[:id])
+    if !Helpers.is_logged_in?(session) || !@recipe || @recipe.user != Helpers.current_user(session)
+      redirect '/'
+    end
+    erb :'/recipes/edit'
+  end
+
+  patch '/recipes/:id' do
+    recipe = Recipe.find_by(id: params[:id])
+    if recipe && recipe.user == Helpers.current_user(session)
+      recipe.update(params[:recipe])
+      redirect to "/recipes/#{recipe.id}"
+    else
+      redirect to "/recipes"
+    end
+  end
+
 end
